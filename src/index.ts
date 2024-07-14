@@ -17,9 +17,6 @@ app.get('/', (c) => {
   return c.body(allowedOrigin ?? '*')
 })
 
-const token = 'honoiscool'
-app.use('/api/payment', cors());
-app.use('/api/payment', bearerAuth({ token }))
 app.post('/api/payment', async (c) => {
   const body = await c.req.json()
   const { singleUseTokenId, customerNumber, 
