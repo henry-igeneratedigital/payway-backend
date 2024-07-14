@@ -7,21 +7,19 @@ import { trimTrailingSlash } from 'hono/trailing-slash'
 
 const app = new Hono()
 const apiBaseUrl = 'https://api.payway.com.au/rest/v1'
-const allowedOrigin = process.env.ALLOWED_ORIGIN
+// const allowedOrigin = process.env.ALLOWED_ORIGIN
 
 app.use(csrf())
 app.use(trimTrailingSlash())
  
 app.get('/', (c) => {
   c.status(200)
-  return c.body(allowedOrigin ?? '*')
+  return c.body('*')
 })
 
 const token = 'honoiscool'
 app.use('/api/payment', bearerAuth({ token }))
-app.use('/api/payment', cors({
-  origin: allowedOrigin ?? '*'
-}))
+app.use('/api/payment', cors())
 app.post('/api/payment', async (c) => {
   const body = await c.req.json()
   const { singleUseTokenId, customerNumber, 
