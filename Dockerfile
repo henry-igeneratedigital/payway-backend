@@ -1,27 +1,17 @@
-FROM node:20-alpine AS base
+FROM rockylinux:latest
 
-FROM base AS builder
+ARG allowed_origin
+ENV ALLOWED_ORIGIN $allowed_origin
 
-RUN apk add --no-cache gcompat
-WORKDIR /app
+RUN dnf update -y && \
+	dnf install curl wget git npm && \
+	npm install -g n@latest && \
+	n lts && \ 
+	hash -r && \
+	git clone https://github.com/henry-igeneratedigital/payway-backend
 
-COPY package*json tsconfig.json src ./
+WORKDIR [/payway-backend/]
+RUN npm install && \
+	npm run build
 
-RUN npm ci && \
-    npm run build && \
-    npm prune --production
-
-FROM base AS runner
-WORKDIR /app
-
-RUN addgroup --system --gid 1001 nodejs
-RUN adduser --system --uid 1001 hono
-
-COPY --from=builder --chown=hono:nodejs /app/node_modules /app/node_modules
-COPY --from=builder --chown=hono:nodejs /app/dist /app/dist
-COPY --from=builder --chown=hono:nodejs /app/package.json /app/package.json
-
-USER hono
-EXPOSE 3000
-
-CMD ["node", "/app/dist/index.js"]
+CMD ['node', 'dist/index.js']
