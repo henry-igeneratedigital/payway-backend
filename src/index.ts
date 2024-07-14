@@ -30,7 +30,7 @@ app.post('/api/payment', async (c) => {
 
   const resp = await fetch(apiBaseUrl + '/transactions', {
     method: 'POST',
-    body: JSON.stringify({
+    body: new URLSearchParams({
       singleUseTokenId,
       customerNumber,
       transactionType,
