@@ -1,6 +1,7 @@
 import { serve } from '@hono/node-server'
 import { Hono } from 'hono'
 import { csrf } from 'hono/csrf'
+import { cors } from 'hono/cors'
 import { trimTrailingSlash } from 'hono/trailing-slash'
 
 const app = new Hono()
@@ -15,6 +16,7 @@ app.get('/', (c) => {
   return c.body(allowedOrigin ?? '*')
 })
 
+app.use('/api/payment', cors());
 app.post('/api/payment', async (c) => {
   const body = await c.req.json()
   const { singleUseTokenId, customerNumber, 
