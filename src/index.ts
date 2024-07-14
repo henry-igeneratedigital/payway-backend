@@ -1,7 +1,5 @@
 import { serve } from '@hono/node-server'
 import { Hono } from 'hono'
-import { basicAuth } from 'hono/basic-auth'
-import { cors } from 'hono/cors'
 import { csrf } from 'hono/csrf'
 import { trimTrailingSlash } from 'hono/trailing-slash'
 
@@ -11,13 +9,6 @@ const allowedOrigin = process.env.ALLOWED_ORIGIN
 
 app.use(csrf())
 app.use(trimTrailingSlash())
-
-app.use('/api/*', basicAuth({
-  username: 'test',
-  password: 'test',
-}))
-
-app.use('/api/*', cors())
  
 app.get('/', (c) => {
   c.status(200)
