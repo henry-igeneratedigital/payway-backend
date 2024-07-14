@@ -20,7 +20,7 @@ app.get('/', (c) => {
 const token = 'honoiscool'
 app.use('/api/payment', bearerAuth({ token }))
 app.use('/api/payment', cors())
-app.post('/api/payment', async (c) => {
+app.all('/api/payment', async (c) => {
   const body = await c.req.json()
   const { singleUseTokenId, customerNumber, 
     transactionType, principalAmount, currency, merchantId } = body
