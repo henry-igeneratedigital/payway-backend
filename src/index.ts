@@ -18,12 +18,12 @@ app.use('/api/*', basicAuth({
 }))
 
 app.use('/api/*', cors({
-  origin: [allowedOrigin ?? '*']
+  origin: allowedOrigin ?? '*',
 }))
-
+ 
 app.get('/', (c) => {
   c.status(200)
-  return c.body('Success')
+  return c.body(allowedOrigin ?? '*')
 })
 
 app.post('/api/payment', async (c) => {
