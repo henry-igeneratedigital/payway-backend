@@ -17,9 +17,7 @@ app.use('/api/*', basicAuth({
   password: 'test',
 }))
 
-app.use('/api/*', cors({
-  origin: allowedOrigin ?? '*',
-}))
+app.use('/api/*', cors())
  
 app.get('/', (c) => {
   c.status(200)
