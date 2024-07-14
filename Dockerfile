@@ -1,7 +1,7 @@
 FROM rockylinux:9
 
 RUN dnf update -y && \
-	dnf install curl wget git npm && \
+	dnf install wget git npm && \
 	npm install -g n@latest && \
 	n lts && \ 
 	hash -r && \
