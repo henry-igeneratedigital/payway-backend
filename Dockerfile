@@ -7,8 +7,11 @@ RUN dnf update -y && \
 	hash -r && \
 	git clone https://github.com/henry-igeneratedigital/payway-backend
 
-WORKDIR payway-backend
+WORKDIR payway-backend/
+
 RUN npm install && \
 	npm run build
 
-CMD ['node', 'dist/index.js']
+WORKDIR dist/
+
+CMD ['node', 'index.js']
