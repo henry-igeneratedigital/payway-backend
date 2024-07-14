@@ -1,4 +1,4 @@
-FROM rockylinux:latest
+FROM rockylinux:9
 
 RUN dnf update -y && \
 	dnf install curl wget git npm && \
