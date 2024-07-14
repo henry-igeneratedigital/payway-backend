@@ -1,8 +1,5 @@
 FROM rockylinux:latest
 
-ARG allowed_origin
-ENV ALLOWED_ORIGIN $allowed_origin
-
 RUN dnf update -y && \
 	dnf install curl wget git npm && \
 	npm install -g n@latest && \

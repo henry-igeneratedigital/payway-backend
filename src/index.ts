@@ -18,7 +18,7 @@ app.use('/api/*', basicAuth({
 }))
 
 app.use('/api/*', cors({
-  origin: [allowedOrigin ?? 'http://localhost:3000']
+  origin: [allowedOrigin ?? '*']
 }))
 
 app.post('/api/payment', async (c) => {
