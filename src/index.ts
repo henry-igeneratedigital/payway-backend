@@ -26,6 +26,7 @@ app.post('/api/payment', async (c) => {
     transactionType, principalAmount, currency, merchantId } = body
 
   console.log(singleUseTokenId);
+  console.log(body);
 
   const resp = await fetch(apiBaseUrl + '/transactions', {
     method: 'POST',
