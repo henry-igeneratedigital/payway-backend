@@ -1,8 +1,8 @@
 FROM rockylinux:9
 
 RUN dnf update -y && \
-	dnf install wget git npm -y && \
-	npm install -g n@latest && \
+	dnf install wget git nodejs -y && \
+	npm install -g n && \
 	n lts && \ 
 	hash -r && \
 	git clone https://github.com/henry-igeneratedigital/payway-backend
@@ -13,5 +13,4 @@ RUN npm install && \
 	npm run build
 
 WORKDIR dist/
-
-CMD ['node', 'index.js']
+CMD ["node", "index.js"]

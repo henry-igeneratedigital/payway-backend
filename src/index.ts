@@ -21,6 +21,11 @@ app.use('/api/*', cors({
   origin: [allowedOrigin ?? '*']
 }))
 
+app.get('/', (c) => {
+  c.status(200)
+  return c.body('Success')
+})
+
 app.post('/api/payment', async (c) => {
   const body = await c.req.json()
   const { singleUseTokenId, customerNumber, 
