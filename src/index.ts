@@ -18,8 +18,13 @@ app.get('/', (c) => {
 })
 
 const token = 'honoiscool'
-app.use('/api/payment', cors());
+app.use('/api/payment', cors({
+  origin: '*'
+}))
 app.use('/api/payment', bearerAuth({ token }))
+app.options('/api/payment', (c) => {
+  return c.text('Success');
+})
 app.post('/api/payment', async (c) => {
   const body = await c.req.json()
   const { singleUseTokenId, customerNumber, 
@@ -44,7 +49,6 @@ app.post('/api/payment', async (c) => {
     }    
   })
 
-  c.header('Access-Control-Allow-Origin', allowedOrigin)
   return c.body(resp.body)
 })
 
