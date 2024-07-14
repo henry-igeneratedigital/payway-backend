@@ -18,19 +18,16 @@ app.get('/', (c) => {
 })
 
 const token = 'honoiscool'
-app.use('/api/payment', cors({
-  origin: '*'
-}))
 app.use('/api/payment', bearerAuth({ token }))
-app.options('/api/payment', (c) => {
-  return c.text('Success');
-})
+app.use('/api/payment', cors({
+  origin: allowedOrigin ?? '*'
+}))
 app.post('/api/payment', async (c) => {
   const body = await c.req.json()
   const { singleUseTokenId, customerNumber, 
     transactionType, principalAmount, currency, merchantId } = body
 
-  console.log(singleUseTokenId);
+  // console.log(singleUseTokenId);
   console.log(body);
 
   const resp = await fetch(apiBaseUrl + '/transactions', {
@@ -49,7 +46,8 @@ app.post('/api/payment', async (c) => {
     }    
   })
 
-  return c.body(resp.body)
+  const response = await resp.json()
+  return c.json(response)
 })
 
 const port = 8787
