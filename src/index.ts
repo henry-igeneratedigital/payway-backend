@@ -44,6 +44,7 @@ app.post('/api/payment', async (c) => {
     }    
   })
 
+  c.header('Access-Control-Allow-Origin', allowedOrigin)
   return c.body(resp.body)
 })
 
